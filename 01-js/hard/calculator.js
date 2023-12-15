@@ -16,6 +16,83 @@
   Once you've implemented the logic, test your code by running
 */
 
-class Calculator {}
+class Calculator {
+  result = 0;
+  constructor() {
+    this.result = 0;
+  }
+
+  add(num) {
+    this.result += num;
+  }
+
+  subtract(num) {
+    this.result -= num;
+  }
+
+  multiply(num) {
+    this.result *= num;
+  }
+
+  divide(num) {
+    if (num === 0) {
+      throw new Error("Cannot divide by 0");
+    }
+    this.result /= num;
+  }
+
+  clear() {
+    this.result = 0;
+  }
+
+  getResult() {
+    return this.result;
+  }
+  
+  calculate(expression) {
+    let result = 0;
+    let currentNumber = 0;
+    let currentOperator = "+";
+    let stack = [];
+    let i = 0;
+    while (i < expression.length) {
+      if (expression[i] === " ") {
+        i++;
+        continue;
+      }
+      if (expression[i] === "(") {
+        stack.push(currentNumber);
+        stack.push(currentOperator);
+        currentNumber = 0;
+        currentOperator = "+";
+      } else if (expression[i] === ")") {
+        currentNumber = this.calculateSimpleExpression(currentNumber, currentOperator, stack.pop());
+        currentOperator = stack.pop();
+      } else if (expression[i] === "+" || expression[i] === "-" || expression[i] === "*" || expression[i] === "/") {
+        currentNumber = this.calculateSimpleExpression(currentNumber, currentOperator, expression[i]);
+        currentOperator = expression[i];
+      } else {
+        currentNumber = currentNumber * 10 + parseInt(expression[i]);
+      }
+      i++;
+    }
+
+    this.result = currentNumber;
+  }
+
+  calculateSimpleExpression(currentNumber, currentOperator, nextOperator) {
+    if (currentOperator === "+") {
+      return currentNumber;
+    } else if (currentOperator === "-") {
+      return -currentNumber;
+    } else if (currentOperator === "*") {
+      return currentNumber * nextOperator;
+    } else if (currentOperator === "/") {
+      return currentNumber / nextOperator;
+    }
+  }
+  
+
+}
 
 module.exports = Calculator;

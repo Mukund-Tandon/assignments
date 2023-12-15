@@ -4,6 +4,21 @@
 */
 
 function isPalindrome(str) {
+  str = str.toLowerCase().split(' ').join('');
+  //remove all punctuation from str
+  str = str.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "");
+
+  console.log(str);
+  let i = 0;
+  let j = str.length - 1;
+
+  while(i < j) {
+    if(str[i] !== str[j]) {
+      return false;
+    }
+    i++;
+    j--;
+  }
   return true;
 }
 
