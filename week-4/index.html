@@ -28,6 +28,39 @@
       const added = [];
       const deleted = [];
       const updated = [];
+
+      for (let i = 0; i < newTodos.length; i++) {
+        const newTodo = newTodos[i];
+        const oldTodo = oldTodoState.find((todo) => todo.id === newTodo.id);
+        if (oldTodo === undefined) {
+          added.push(newTodo);
+        } else if (oldTodo.title !== newTodo.title || oldTodo.description !== newTodo.description) {
+          updated.push(newTodo);
+        }
+      }
+
+      for (let i = 0; i < oldTodoState.length; i++) {
+        const oldTodo = oldTodoState[i];
+        const newTodo = newTodos.find((todo) => todo.id === oldTodo.id);
+        if (newTodo === undefined) {
+          deleted.push(oldTodo);
+        }
+      }
+
+      // now that we have added, deleted and updated todos, we can
+
+      // 1. add added todos to the DOM
+      // 2. remove deleted todos from the DOM
+      // 3. update updated todos in the DOM
+
+      // for each of the above 3, we need to
+      // 1. call addTodoToDom, removeTodoFromDom, updateTodoInDom functions
+      // 2. pass the todo to the above functions
+      // 3. pass the DOM element to the above functions
+
+      
+      
+    
       // calculate these 3 arrays
       // call addTodo, removeTodo, updateTodo functions on each of the
       // elements
