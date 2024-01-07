@@ -3,6 +3,8 @@ const adminMiddleware = require("../middleware/admin");
 const { Admin, Course } = require("../db");
 const router = express.Router();
 
+
+
 router.post('/signup', async (req, res) => {
     // Implement admin signup logic
     const username = req.body.username;
@@ -41,6 +43,7 @@ router.post('/courses', adminMiddleware, async (req, res) => {
 
 router.get('/courses', adminMiddleware, async (req, res) => {
     // Implement fetching all courses logic
+    console.log("Couser 99999999999");
     const response = await Course.find({});
 
     res.json({
